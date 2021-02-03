@@ -12,7 +12,7 @@ import Header from '../home/header';
 import auth from '@react-native-firebase/auth';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector, useDispatch} from 'react-redux';
-import {fecthAllOrders} from '../../../../Store/actions/restaurantFoodAdd';
+import {fecthAllOrders,fecthAllCarts} from '../../../../Store/actions/restaurantFoodAdd';
 
 const ShowOrder = ({navigation}) => {
   const dispatch = useDispatch();
@@ -27,6 +27,7 @@ const ShowOrder = ({navigation}) => {
     auth().onAuthStateChanged((user) => {
       if (user) {
         dispatch(fecthAllOrders(user.uid));
+        dispatch(fecthAllCarts());
       }
     });
     wait(1500);
@@ -36,12 +37,15 @@ const ShowOrder = ({navigation}) => {
     auth().onAuthStateChanged((user) => {
       if (user) {
         dispatch(fecthAllOrders(user.uid));
+        dispatch(fecthAllCarts(user.uid));
       }
     });
   }, []);
   const getData = useSelector(({restaurant}) => {
     return restaurant.orders;
   });
+  const getCartData = useSelector(({restaurant})=>{return restaurant.cartorder})
+  console.log('Data of orders is here.............................',getCartData)
   return (
     <View style={styles.container}>
       <Header />

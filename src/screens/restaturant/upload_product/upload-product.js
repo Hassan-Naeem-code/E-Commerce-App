@@ -8,6 +8,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   ScrollView,
+  ToastAndroid,
 } from 'react-native';
 import Header from '../home/header';
 import storage from '@react-native-firebase/storage';
@@ -68,30 +69,49 @@ const UploadProduct = ({navigation}) => {
     }
   }
   const addFood = () => {
-    let food = {
-      dishName,
-      dishType,
-      foodDesc,
-      foodPrice,
-      deliveryTime,
-      qualityFood,
-      foodImage,
-      restaurantname,
-      location,
-      contactNumber,
-      typeRes,
-      email,
-      uid,
-    };
-    dispatch(restaurantFoodAddProcess(food, navigation));
-    setDishName('');
-    setDishType('');
-    setFoodDesc('');
-    setFoodPrice('');
-    setDeliveryTime('');
-    setQualityFood('');
-    setFoodImage('https://digitalsynopsis.com/wp-content/uploads/2016/06/loading-animations-preloader-gifs-ui-ux-effects-23.gif');
-    
+    if (
+      dishName !== '' &&
+      dishType !== '' &&
+      foodDesc !== '' &&
+      foodPrice !== '' &&
+      deliveryTime !== '' &&
+      qualityFood !== '' &&
+      foodImage !== '' &&
+      restaurantname !== '' &&
+      location !== '' &&
+      contactNumber !== '' &&
+      typeRes !== '' &&
+      email !== '' &&
+      uid !== ''
+    ) {
+      let food = {
+        dishName,
+        dishType,
+        foodDesc,
+        foodPrice,
+        deliveryTime,
+        qualityFood,
+        foodImage,
+        restaurantname,
+        location,
+        contactNumber,
+        typeRes,
+        email,
+        uid,
+      };
+      dispatch(restaurantFoodAddProcess(food, navigation));
+      setDishName('');
+      setDishType('');
+      setFoodDesc('');
+      setFoodPrice('');
+      setDeliveryTime('');
+      setQualityFood('');
+      setFoodImage(
+        'https://digitalsynopsis.com/wp-content/uploads/2016/06/loading-animations-preloader-gifs-ui-ux-effects-23.gif',
+      );
+    } else {
+      ToastAndroid.show('Please fill up all the fields', 2000);
+    }
   };
   return (
     <View style={styles.container}>

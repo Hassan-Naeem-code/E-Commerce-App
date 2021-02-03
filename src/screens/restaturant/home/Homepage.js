@@ -46,7 +46,7 @@ const Homepage = ({navigation}) => {
   console.log('Data is ', getData);
   return (
     <View style={styles.container}>
-      <Header />
+      <Header navigation={navigation} />
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

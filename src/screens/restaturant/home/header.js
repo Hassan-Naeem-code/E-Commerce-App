@@ -2,12 +2,12 @@ import React from 'react';
 import {View, TouchableOpacity, TextInput, Image} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useDispatch} from 'react-redux';
-import {signOut} from '../../../../Store/actions/auth';
+import {signOutRestaurant} from '../../../../Store/actions/auth';
 
 const Header = ({navigation}) => {
   const dispatch = useDispatch();
   const signOutUser = ()=>{
-    dispatch(signOut(navigation));
+    dispatch(signOutRestaurant(navigation));
   }
   return (
     <View style={{flexDirection: 'row'}}>

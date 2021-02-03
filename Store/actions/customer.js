@@ -6,6 +6,7 @@ import {
   ADD_TO_CART,
   MINUS_FROM_CART,
   DELETE_FROM_CART,
+  DELETE_THE_CART,
 } from '../constants/actiontypes';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -14,7 +15,7 @@ import {ToastAndroid} from 'react-native';
 export function customerOrder(order, navigation) {
   return (dispatch) => {
     firestore()
-      .collection('orders')
+      .collection('singleorder')
       .add(order)
       .then(() => {
         ToastAndroid.show('Order Place Successfully', 2000);
@@ -103,3 +104,14 @@ export function deleteFromCart(product) {
     });
   };
 }
+
+export function placeOrder (product,navigation) {
+  return async (dispatch) => {
+    await firestore().collection('orders').add(product);
+    dispatch({
+      type: DELETE_THE_CART,
+    });
+    ToastAndroid.show('Order Placed Successfully', 2000);
+    navigation.navigate('Submit');
+  };
+};

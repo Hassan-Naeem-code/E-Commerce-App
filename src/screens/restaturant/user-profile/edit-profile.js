@@ -100,7 +100,7 @@ const EditProfile = ({navigation}) => {
       restaurantType,
       docid,
     };
-    dispatch(updateCurrentUserInfo(restaurant));
+    dispatch(updateCurrentUserInfo(restaurant,navigation));
     setcoverImage(getState.coverImage);
     setprofileImage(getState.profileImage);
     setRestaurantName(getState.restaurantname);
@@ -108,7 +108,7 @@ const EditProfile = ({navigation}) => {
     setContactNumber(getState.contactNumber);
     setLocation(getState.location);
     setRestaurantType(getState.typeRes);
-    navigation.navigate('Profile');
+   
   };
   console.log('Redux data is here:', getState);
   return (

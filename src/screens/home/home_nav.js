@@ -5,6 +5,7 @@ import auth from '@react-native-firebase/auth';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Customer from '../customer_menus/customer_menu';
 import Carts from '../cart/add_cart';
+import SecondCarts from '../cart/add_cart';
 import Favourite from '../favourite/favourite';
 import RestaurantProfile from '../restaturant/user-profile/user-profile';
 import RestaurantHome from '../restaturant/home/Homepage';

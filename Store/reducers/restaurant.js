@@ -2,12 +2,14 @@ import {
   RESTAURANT_FOOD_ADD,
   NOT_AUTHORISE_USER_DISHES,
   RESTAURANT_ORDERS,
+  RESTAURANT_CART_ORDERS
 } from '../constants/actiontypes';
 
 const INIT_STATE = {
   dishes: [],
   tempDishes: [],
   orders: [],
+  cartorder:[],
 };
 
 export default (state = INIT_STATE, action) => {
@@ -62,6 +64,24 @@ export default (state = INIT_STATE, action) => {
         ...state,
         orders: allOrders,
       };
+
+    case RESTAURANT_CART_ORDERS:{
+      let cartOrder = state.cartorder.slice(0);
+      let newOrderget = true;
+      cartOrder.map((recipient) => {
+        if (recipient.address === action.payload.address) {
+          newOrderget = false;
+        }
+      });
+
+      if (cartOrder.length === 0 || newOrderget) {
+        cartOrder.push(action.payload);
+      }
+      return {
+        ...state,
+        cartorder: cartOrder,
+      };
+    }
 
     default:
       return state;

@@ -91,7 +91,7 @@ const ProductDetail = ({navigation, route}) => {
                 </TouchableOpacity>
               </View>
               <View style={styles.secondAreaSecondHeading}>
-                <TouchableOpacity style={styles.actionBtn}>
+                <TouchableOpacity style={styles.actionBtn} >
                   <AntDesign name={'delete'} size={18} color={'rgb(255,0,0)'} />
                 </TouchableOpacity>
               </View>

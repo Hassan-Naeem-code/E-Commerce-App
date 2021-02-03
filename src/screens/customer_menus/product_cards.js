@@ -70,6 +70,7 @@ const Product_Cards = ({navigation: {navigate}}) => {
       'Get product in the  wishlisht present in the redux is.......................................................................................',
       getWishlist,
     );
+    console.log("get data ............0",getDishes);
   });
 
   const [check, setCheck] = useState(true);

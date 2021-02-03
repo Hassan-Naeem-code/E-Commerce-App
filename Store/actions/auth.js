@@ -246,7 +246,21 @@ export function signOut(navigation) {
         });
       });
       ToastAndroid.show('User Sign Out Successfully',2000);
-      navigation.navigate('Login');
+      navigation.navigate('Homepage');
+  };
+}
+
+export function signOutRestaurant(navigation) {
+  return (dispatch) => {
+    auth()
+      .signOut()
+      .then(() => {
+        dispatch({
+          type: USER_LOGGED_OUT,
+        });
+      });
+      ToastAndroid.show('Restaurant Sign Out Successfully',2000);
+      navigation.navigate('Login',{role:'Restaurant'});
   };
 }
 
@@ -265,7 +279,7 @@ export function fetchUserInfo(uid) {
 }
 
 
-export function updateCurrentUserInfo(userInfo){
+export function updateCurrentUserInfo(userInfo,navigation){
   return async (dispatch)=>{
     await firestore().collection('users').doc(userInfo.docid).set({
       contactNumber: userInfo.contactNumber,
@@ -277,5 +291,6 @@ export function updateCurrentUserInfo(userInfo){
       profileImage: userInfo.profilePic
     });
     ToastAndroid.show('User Profile Update Successfully',2000);
+    navigation.navigate('RestaurantProfile');
   }
 }
