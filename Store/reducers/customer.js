@@ -6,51 +6,52 @@ import {
   WISHLISHT_DELETION,
   MINUS_FROM_CART,
   DELETE_FROM_CART,
+  DELETE_THE_CART,
 } from '../constants/actiontypes';
 
 const INIT_STATE = {
-  dishes: [],
-  tempDishes: [],
+  // dishes: [],
+  // tempDishes: [],
   wishlist: [],
   cart: [],
 };
 
 export default (state = INIT_STATE, action) => {
   switch (action.type) {
-    case RESTAURANT_FOOD_ADD: {
-      let allRecepients = state.dishes.slice(0);
-      let newUser = true;
-      allRecepients.map((recipient) => {
-        if (recipient.dishName === action.payload.dishName) {
-          newUser = false;
-        }
-      });
+    // case RESTAURANT_FOOD_ADD: {
+    //   let allRecepients = state.dishes.slice(0);
+    //   let newUser = true;
+    //   allRecepients.map((recipient) => {
+    //     if (recipient.dishName === action.payload.dishName) {
+    //       newUser = false;
+    //     }
+    //   });
 
-      if (allRecepients.length === 0 || newUser) {
-        allRecepients.push(action.payload);
-      }
-      return {
-        ...state,
-        dishes: allRecepients,
-      };
-    }
-    case NOT_AUTHORISE_USER_DISHES: {
-      let allDishes = state.tempDishes.slice(0);
-      let newDish = true;
-      allDishes.map((recipient) => {
-        if (recipient.dishName === action.payload.dishName) {
-          newDish = false;
-        }
-      });
+    //   if (allRecepients.length === 0 || newUser) {
+    //     allRecepients.push(action.payload);
+    //   }
+    //   return {
+    //     ...state,
+    //     dishes: allRecepients,
+    //   };
+    // }
+    // case NOT_AUTHORISE_USER_DISHES: {
+    //   let allDishes = state.tempDishes.slice(0);
+    //   let newDish = true;
+    //   allDishes.map((recipient) => {
+    //     if (recipient.dishName === action.payload.dishName) {
+    //       newDish = false;
+    //     }
+    //   });
 
-      if (allDishes.length === 0 || newDish) {
-        allDishes.push(action.payload);
-      }
-      return {
-        ...state,
-        tempDishes: allDishes,
-      };
-    }
+    //   if (allDishes.length === 0 || newDish) {
+    //     allDishes.push(action.payload);
+    //   }
+    //   return {
+    //     ...state,
+    //     tempDishes: allDishes,
+    //   };
+    // }
     case WIHSLIST_ADDITION: {
       let wishlistProduct = state.wishlist.slice(0);
       wishlistProduct.push(action.payload);
@@ -148,6 +149,15 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         cart: cartCloneThird,
+      };
+    }
+
+    case DELETE_THE_CART: {
+      let cloneTheCart = state.cart.slice(0);
+      cloneTheCart.splice(0);
+      return {
+        ...state,
+        cart: cloneTheCart,
       };
     }
 

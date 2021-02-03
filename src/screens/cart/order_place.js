@@ -7,6 +7,7 @@ import {
   TextInput,
   ScrollView,
   RefreshControl,
+  ToastAndroid,
 } from 'react-native';
 import {Form, Item, Input, Label, Right, Radio, Left} from 'native-base';
 import Header from '../customer_menus/main_header';
@@ -14,8 +15,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {useDispatch, useSelector} from 'react-redux';
+import {placeOrder} from '../../../Store/actions/customer';
 
-const OrderPlace = () => {
+const OrderPlace = ({navigation}) => {
   const dispatch = useDispatch();
   const getCartProduct = useSelector(({customer}) => {
     return customer.cart;
@@ -29,6 +31,7 @@ const OrderPlace = () => {
   const [email, setEmail] = useState(getState.email);
   const [number, setNumber] = useState(getState.phNumber);
   const [address, setAddress] = useState(getState.address);
+  const [payment,setPayment] = useState('Cash On Delivery')
 
   const calculateAmount = () => {
     let totalAmount = 0;
@@ -38,9 +41,18 @@ const OrderPlace = () => {
     setGrandTotal(totalAmount);
   };
 
+  const checkCondition = ()=>{
+     if(address == '' || number == '' || address == '' && number == ''){
+       ToastAndroid.show('Please Fill All The Fields',2000);
+     }
+     else{
+      let deliveryCart = {grandTotal,name,email,address,number,payment};
+      deliveryCart.cart = getCartProduct;
+       dispatch(placeOrder(deliveryCart,navigation));
+     }
+  }
   useEffect(() => {
     calculateAmount();
-    console.log('The Authenticate user is here:', getState);
   });
   // End...!
   return (
@@ -130,16 +142,22 @@ const OrderPlace = () => {
               style={styles.field_text}
             />
           </Item>
-          <View style={styles.margin_vertical_8}>
-            <Label style={styles.label_text}>DELIVERY METHOD</Label>
-            <Left>
-              <Radio
-                color={'#f0ad4e'}
-                selectedColor={'#5cb85c'}
-                selected={false}
-              />
-            </Left>
-          </View>
+          <Item floatingLabel last>
+            <Label style={styles.label_text}>
+              PAYMENT METHOD
+            </Label>
+            <Input
+             editable={false}
+              value={payment}
+              onChangeText={(text) => {
+                setPayment(text);
+              }}
+              style={styles.field_text}
+            />
+          </Item>
+          <TouchableOpacity style={styles.btn} onPress={checkCondition}>
+            <Text style={styles.btnText}>Place Order</Text>
+          </TouchableOpacity>
         </Form>
       </ScrollView>
     </View>
@@ -218,5 +236,23 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     borderColor: 'rgb(257,90,71)',
     borderWidth: 1,
+  },
+  btn: {
+    backgroundColor: 'rgb(255,99,71)',
+    color: '#fff',
+    marginVertical: 10,
+    alignSelf:'center',
+    fontSize: 15,
+    textAlign: 'center',
+    borderRadius: 50,
+    padding: 15,
+    width: '50%',
+  },
+  btnText: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: '800',
+    fontStyle: 'italic',
+    color: '#fff',
   },
 });

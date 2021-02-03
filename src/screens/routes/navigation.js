@@ -35,7 +35,8 @@ import Banner from '../customer_menus/banner_slider';
 import Carousel from '../customer_menus/carousel_menu';
 import ChineeseCard from '../customer_menus/chineese_card';
 import DesiCard from '../customer_menus/desi_cards';
-import Header from '../customer_menus/main_header';
+import Main_Header from '../customer_menus/main_header';
+import Carts from '../cart/add_cart';
 import Order from '../cart/order_place';
 import Submit from '../cart/submit';
 
@@ -53,7 +54,7 @@ import Orders from '../restaturant/user-profile/orders';
 import PersonalInfor from '../restaturant/user-profile/personal-info';
 import EditProfile from '../restaturant/user-profile/edit-profile';
 import OrderDeatils from '../restaturant/show_order/order-details';
-
+import Header from '../restaturant/home/header';
 // Restaurant After Login Screens Ends
 
 const Stack = createStackNavigator();
@@ -120,8 +121,8 @@ const Navigation = () => {
           options={{headerShown: false}}
         />
         <Screen
-          name="Header"
-          component={Header}
+          name="Main_Header"
+          component={Main_Header}
           options={{headerShown: false}}
         />
 
@@ -216,6 +217,17 @@ const Navigation = () => {
           component={Submit}
           options={{headerShown: false}}
         />
+         <Screen
+          name="Carts"
+          component={Carts}
+          options={{headerShown: false}}
+        />
+        <Screen
+          name="Header"
+          component={Header}
+          options={{headerShown: false}}
+        />
+        
       </Navigator>
     </NavigationContainer>
   );
