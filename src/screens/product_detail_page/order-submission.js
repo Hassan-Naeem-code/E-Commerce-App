@@ -29,27 +29,32 @@ const OrderSubmission = ({route, navigation}) => {
   const [address, setAddress] = useState(getState.address);
   const [deliveryTime, setDeliveryTime] = useState(dataOfFood.deliveryTime);
   const [foodName, setFoodName] = useState(dataOfFood.dishName);
-  const [quatity, setQuantity] = useState('1');
+  const [quatity, setQuantity] = useState('');
   const [price, setPrice] = useState(dataOfFood.foodPrice);
 
   const orderPlace = () => {
     let uid = dataOfFood.uid;
     let userUid = getState.uid;
-    let order = {
-      fName,
-      lName,
-      email,
-      contactNumber,
-      address,
-      foodName,
-      price,
-      deliveryTime,
-      quatity,
-      foodImage,
-      uid,
-      userUid,
-    };
-    dispatch(customerOrder(order, navigation));
+    if(fName == '' || lName == '' || email == '' || contactNumber == '' || address == '' || foodName == '' || price == '' || deliveryTime == '' || quatity == '' || foodImage == '' || fName == '' && lName == '' && email == '' && contactNumber == '' && address == '' && foodName == '' && price == '' && deliveryTime == '' && quatity == '' && foodImage == '' ){
+     ToastAndroid.show('Please First Fill Out All The Fields',2000); 
+    }
+    else{
+      let order = {
+        fName,
+        lName,
+        email,
+        contactNumber,
+        address,
+        foodName,
+        price,
+        deliveryTime,
+        quatity,
+        foodImage,
+        uid,
+        userUid,
+      };
+      dispatch(customerOrder(order, navigation));
+    }
   };
   return (
     <View style={styles.container}>

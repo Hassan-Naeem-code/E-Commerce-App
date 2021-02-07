@@ -4,28 +4,27 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Image,
   StyleSheet,
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
-import {useSelector} from 'react-redux';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {useSelector, useDispatch} from 'react-redux';
+import {signOut} from '../../../Store/actions/auth';
 
-const Main_Header = () => {
+const Main_Header = ({navigation}) => {
+  const dispatch = useDispatch();
   const getCartProduct = useSelector(({customer}) => {
     return customer.cart;
   });
+  const signOutUser = () => {
+    dispatch(signOut(navigation));
+  };
   return (
     <View style={styles.container}>
       <View style={styles.inner_row}>
         <View style={styles.inner_row_column_first}>
-          <TouchableOpacity>
-            <Image
-              source={{
-                uri:
-                  'https://pbs.twimg.com/profile_images/1354964729/Icon512.png',
-              }}
-              style={styles.first_area_image}
-            />
+          <TouchableOpacity style={styles.btn_log_out} onPress={signOutUser}>
+            <AntDesign name={'logout'} size={18} color={'rgb(255,99,71)'} />
           </TouchableOpacity>
         </View>
         <View style={styles.inner_row_column_second}>
@@ -84,12 +83,19 @@ const styles = StyleSheet.create({
     paddingBottom: 2,
     borderRadius: 100,
   },
-  inner_area_column_third_icon:{
-    fontSize: 11, color: 'white'
+  inner_area_column_third_icon: {
+    fontSize: 11,
+    color: 'white',
   },
   first_area_image: {
     width: 30,
     height: 30,
     borderRadius: 50,
+  },
+  btn_log_out: {
+    backgroundColor: '#fff',
+    borderRadius: 100,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
   },
 });

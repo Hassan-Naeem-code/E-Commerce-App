@@ -246,7 +246,8 @@ export function signOut(navigation) {
         });
       });
       ToastAndroid.show('User Sign Out Successfully',2000);
-      navigation.navigate('Homepage');
+      navigation.navigate('Login',{role:'Customer'});
+    console.log('Navigation we get here is',navigation);
   };
 }
 
@@ -289,6 +290,10 @@ export function updateCurrentUserInfo(userInfo,navigation){
       typeRes: userInfo.restaurantType,
       coverImage: userInfo.coverPic,
       profileImage: userInfo.profilePic
+    });
+    dispatch({
+      type: USER_REGISTERED,
+      payload: userInfo,
     });
     ToastAndroid.show('User Profile Update Successfully',2000);
     navigation.navigate('RestaurantProfile');
