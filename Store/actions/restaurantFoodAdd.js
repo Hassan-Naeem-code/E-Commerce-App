@@ -63,12 +63,18 @@ export function fecthAllOrders(uid) {
 export function fecthAllCarts(uid) {
   return async (dispatch) => {
     let dishItem = await firestore()
-      .collectionGroup('orders')
+      .collection('order_Dishes')
       .where('uid','==',uid)
       .get();
-    dishItem.forEach(function (doc) {
+      dishItem.forEach(async function (doc) {
+      let orderData = await firestore()
+        .collection('orders')
+        .doc(doc.data().order_id)
+        .get();
       let dish = doc.data();
       dish.id = doc.id;
+      dish.order = orderData.data();
+      dish.image = orderData.data().name;
       dispatch({type: RESTAURANT_CART_ORDERS, payload: dish});
     });
    

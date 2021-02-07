@@ -18,8 +18,6 @@ import {
   wishlishtRemoval,
   minusFromCart,
 } from '../../../Store/actions/customer';
-let getTrueIndex;
-let checkBool = false;
 let found = {};
 const Product_Cards = ({navigation: {navigate}}) => {
   const dispatch = useDispatch();
@@ -52,11 +50,12 @@ const Product_Cards = ({navigation: {navigate}}) => {
     for (let i = 0; i < getCartProduct.length; i++) {
       totalAmount = totalAmount + getCartProduct[i].quantity;
     }
-    console.log(totalAmount);
+    // console.log(totalAmount);
     setGrandTotal(totalAmount);
   };
 
   useEffect(() => {
+    console.log('-----------',getCartProduct);
     calculateAmount();
   }, []);
   // End...!
@@ -184,7 +183,7 @@ const Product_Cards = ({navigation: {navigate}}) => {
                         </TouchableOpacity>
                         <View style={styles.inner_row_product_card_icon_text}>
                           <Text style={styles.inner_row_product_grand_amount}>
-                            {grandTotal}
+                            {getCartProduct.find(pro => pro.id === item.id) ? getCartProduct.find(pro => pro.id === item.id).quantity: grandTotal}
                           </Text>
                         </View>
                         <TouchableOpacity

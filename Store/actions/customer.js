@@ -107,7 +107,17 @@ export function deleteFromCart(product) {
 
 export function placeOrder (product,navigation) {
   return async (dispatch) => {
-    await firestore().collection('orders').add(product);
+    let obj = {
+      address: product.address,
+      name: product.name,
+    }
+    let orderId = await firestore().collection('orders').add(obj);
+    product.cart.map(async (pro) => {
+      pro.order_id = orderId.id;
+      await firestore().collection('order_Dishes').add(pro);
+      
+    })
+    // console.log(orderId.id);
     dispatch({
       type: DELETE_THE_CART,
     });

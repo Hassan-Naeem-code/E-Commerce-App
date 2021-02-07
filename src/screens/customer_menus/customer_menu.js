@@ -37,7 +37,7 @@ const Customer_Menu = ({navigation}) => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        <Header />
+        <Header navigation={navigation}/>
         <Banner />
         <Text style={styles.food_text}>MIX FOOD</Text>
         <MixCards navigation={navigation} />

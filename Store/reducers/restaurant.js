@@ -77,6 +77,8 @@ export default (state = INIT_STATE, action) => {
       if (cartOrder.length === 0 || newOrderget) {
         cartOrder.push(action.payload);
       }
+      // console.log('reducee========',action.payload);
+      // cartOrder.push(action.payload);
       return {
         ...state,
         cartorder: cartOrder,

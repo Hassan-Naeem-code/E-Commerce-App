@@ -26,7 +26,7 @@ const ShowOrder = ({navigation}) => {
     setRefreshing(true);
     auth().onAuthStateChanged((user) => {
       if (user) {
-        dispatch(fecthAllOrders(user.uid));
+        // dispatch(fecthAllOrders(user.uid));
         dispatch(fecthAllCarts());
       }
     });
@@ -36,7 +36,7 @@ const ShowOrder = ({navigation}) => {
   useEffect(() => {
     auth().onAuthStateChanged((user) => {
       if (user) {
-        dispatch(fecthAllOrders(user.uid));
+        // dispatch(fecthAllOrders(user.uid));
         dispatch(fecthAllCarts(user.uid));
       }
     });
@@ -44,6 +44,9 @@ const ShowOrder = ({navigation}) => {
   const getData = useSelector(({restaurant}) => {
     return restaurant.orders;
   });
+  useEffect(() => {
+    console.log(getData);
+  }, [])
   const getCartData = useSelector(({restaurant})=>{return restaurant.cartorder})
   console.log('Data of orders is here.............................',getCartData)
   return (
@@ -53,8 +56,8 @@ const ShowOrder = ({navigation}) => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        {getData && getData.length > 0
-          ? getData.map((item, index) => {
+        {getCartData && getCartData.length > 0
+          ? getCartData.map((item, index) => {
               return (
                 <View style={styles.product_card} key={index}>
                   <View style={styles.image_area}>
@@ -75,7 +78,8 @@ const ShowOrder = ({navigation}) => {
                           navigation.navigate('OrderDetails', {data: item});
                         }}>
                         <Text style={styles.food_text}>
-                          {item.fName + ' ' + item.lName}
+                          {/* {item.fName + ' ' + item.lName} */}
+                          {item?.order?.name}
                         </Text>
                       </TouchableOpacity>
                       <Text style={styles.food_desc}>Karachi, Pakistan</Text>
