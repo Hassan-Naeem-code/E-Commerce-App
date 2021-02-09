@@ -1,11 +1,14 @@
-import React, {useEffect} from 'react';
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, Image, StyleSheet, TouchableOpacity,ActivityIndicator} from 'react-native';
 import {useSelector} from 'react-redux';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import LinearGradient from 'react-native-linear-gradient';
+
 const Homepage = ({navigation}) => {
   const loginPageAdmin = () => {
+    // setIndicator(true);
     navigation.navigate('Login', {role: 'Admin'});
   };
   const loginPageCustomer = () => {
@@ -17,6 +20,7 @@ const Homepage = ({navigation}) => {
   const getState = useSelector(({auth}) => {
     return auth.auth;
   });
+  const [indicator, setIndicator] = useState(false);
   useEffect(() => {
     getState ? navigation.navigate('Home') : null;
   });
@@ -37,46 +41,54 @@ const Homepage = ({navigation}) => {
       <View style={styles.mainHeadingContainer}>
         <View style={styles.flex_2}></View>
         <View style={styles.flex_5}>
-          <TouchableOpacity style={styles.btn} onPress={loginPageAdmin}>
-            <View
-              style={styles.row_center}>
-              <View style={styles.flex_5}>
-                <Text style={styles.btnText}>ENTER AS ADMIN</Text>
+          <LinearGradient colors={['#FF8008', '#FFC837']} style={styles.btn}>
+            <TouchableOpacity onPress={loginPageAdmin}>
+              <View style={styles.row_center}>
+                <View style={styles.flex_6}>
+                  <Text style={styles.btnText}>ENTER AS ADMIN</Text>
+                  {/* <ActivityIndicator
+                    size="small"
+                    color="#FF8008"
+                    animating={indicator}
+                  /> */}
+                </View>
+                {/* <View style={styles.flex_1}></View> */}
+                <View style={styles.flex_1}>
+                  <MaterialIcon
+                    name={'admin-panel-settings'}
+                    size={26}
+                    color={'#fff'}
+                  />
+                </View>
               </View>
-              <View style={styles.flex_1}></View>
-              <View style={styles.flex_1}>
-                <MaterialIcon
-                  name={'admin-panel-settings'}
-                  size={26}
-                  color={'#fff'}
-                />
+            </TouchableOpacity>
+          </LinearGradient>
+          <LinearGradient colors={['#FF8008', '#FFC837']} style={styles.btn}>
+            <TouchableOpacity onPress={loginPageCustomer}>
+              <View style={styles.row_center}>
+                <View style={styles.flex_6}>
+                  <Text style={styles.btnText}> ENTER AS CUSTOMER</Text>
+                </View>
+                {/* <View style={styles.flex_1}></View> */}
+                <View style={styles.flex_1}>
+                  <Entypo name={'users'} size={26} color={'#fff'} />
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btn} onPress={loginPageCustomer}>
-            <View
-              style={styles.row_center}>
-              <View style={styles.flex_5}>
-                <Text style={styles.btnText}> ENTER AS CUSTOMER</Text>
+            </TouchableOpacity>
+          </LinearGradient>
+          <LinearGradient colors={['#FF8008', '#FFC837']} style={styles.btn}>
+            <TouchableOpacity onPress={loginPageRestaurant}>
+              <View style={styles.row_center}>
+                <View style={styles.flex_6}>
+                  <Text style={styles.btnText}> ENTER AS RESTAURANT</Text>
+                </View>
+                {/* <View style={styles.flex_1}></View> */}
+                <View style={styles.flex_1}>
+                  <Ionicons name={'fast-food'} size={26} color={'#fff'} />
+                </View>
               </View>
-              <View style={styles.flex_1}></View>
-              <View style={styles.flex_1}>
-                <Entypo name={'users'} size={26} color={'#fff'} />
-              </View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btn} onPress={loginPageRestaurant}>
-            <View
-              style={styles.row_center}>
-              <View style={styles.flex_5}>
-                <Text style={styles.btnText}> ENTER AS RESTAURANT</Text>
-              </View>
-              <View style={styles.flex_1}></View>
-              <View style={styles.flex_1}>
-                <Ionicons name={'fast-food'} size={26} color={'#fff'} />
-              </View>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </LinearGradient>
         </View>
         <View style={styles.flex_2}></View>
       </View>
@@ -100,7 +112,10 @@ const styles = StyleSheet.create({
   flex_5: {
     flex: 5,
   },
-  row_center:{
+  flex_6: {
+    flex: 6,
+  },
+  row_center: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -125,7 +140,6 @@ const styles = StyleSheet.create({
     height: '25%',
   },
   btn: {
-    backgroundColor: 'rgb(255,99,71)',
     color: '#fff',
     marginVertical: 10,
     fontSize: 15,
@@ -134,7 +148,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   btnText: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: '800',
     fontStyle: 'italic',
     color: '#fff',
