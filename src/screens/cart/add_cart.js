@@ -44,7 +44,7 @@ const AddCart = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Header />
+        <Header navigation={navigation} />
         {getCartProduct && getCartProduct.length > 0 ? (
           <>
             {/*Ahmed condition  */}

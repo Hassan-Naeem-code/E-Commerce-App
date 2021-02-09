@@ -21,8 +21,8 @@ const EditProfile = ({navigation}) => {
   const getState = useSelector(({auth}) => {
     return auth.auth;
   });
-  const [coverImage, setcoverImage] = useState(getState.coverImage);
-  const [profileImage, setprofileImage] = useState(getState.profileImage);
+  const [coverImage, setcoverImage] = useState("https://s3.envato.com/files/273273308/01_preview.__large_preview.jpg");
+  const [profileImage, setprofileImage] = useState('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSX5E_Y5KajrGgCXru5JaFqHj1f4knkuEGwA&usqp=CAU');
   const [restaurantname, setRestaurantName] = useState(getState.restaurantname);
   const [email, setEmail] = useState(getState.email);
   const [contactNumber, setContactNumber] = useState(getState.contactNumber);
@@ -99,6 +99,7 @@ const EditProfile = ({navigation}) => {
       location,
       restaurantType,
       docid,
+      uid: getState.uid,
     };
     dispatch(updateCurrentUserInfo(restaurant,navigation));
     setcoverImage(getState.coverImage);
