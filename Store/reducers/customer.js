@@ -54,7 +54,16 @@ export default (state = INIT_STATE, action) => {
     // }
     case WIHSLIST_ADDITION: {
       let wishlistProduct = state.wishlist.slice(0);
-      wishlistProduct.push(action.payload);
+      let newWishlist = true;
+      wishlistProduct.map((recipient) => {
+        if (recipient.dishName === action.payload.dishName) {
+          newWishlist = false;
+        }
+      });
+
+      if (wishlistProduct.length === 0 || newWishlist) {
+        wishlistProduct.push(action.payload);
+      }
       return {
         ...state,
         wishlist: wishlistProduct,
