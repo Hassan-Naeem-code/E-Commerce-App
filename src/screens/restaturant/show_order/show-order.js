@@ -12,7 +12,10 @@ import Header from '../home/header';
 import auth from '@react-native-firebase/auth';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector, useDispatch} from 'react-redux';
-import {fecthAllOrders,fecthAllCarts} from '../../../../Store/actions/restaurantFoodAdd';
+import {
+  fecthAllOrders,
+  fecthAllCarts,
+} from '../../../../Store/actions/restaurantFoodAdd';
 
 const ShowOrder = ({navigation}) => {
   const dispatch = useDispatch();
@@ -26,7 +29,7 @@ const ShowOrder = ({navigation}) => {
     setRefreshing(true);
     auth().onAuthStateChanged((user) => {
       if (user) {
-        // dispatch(fecthAllOrders(user.uid));
+        dispatch(fecthAllOrders(user.uid));
         dispatch(fecthAllCarts());
       }
     });
@@ -36,7 +39,7 @@ const ShowOrder = ({navigation}) => {
   useEffect(() => {
     auth().onAuthStateChanged((user) => {
       if (user) {
-        // dispatch(fecthAllOrders(user.uid));
+        dispatch(fecthAllOrders(user.uid));
         dispatch(fecthAllCarts(user.uid));
       }
     });
@@ -46,18 +49,68 @@ const ShowOrder = ({navigation}) => {
   });
   useEffect(() => {
     console.log(getData);
-  }, [])
-  const getCartData = useSelector(({restaurant})=>{return restaurant.cartorder})
-  console.log('Data of orders is here.............................',getCartData)
+  }, []);
+  const getCartData = useSelector(({restaurant}) => {
+    return restaurant.cartorder;
+  });
+  console.log(
+    'Data of orders is here.............................',
+    getCartData,
+  );
   return (
     <View style={styles.container}>
-      <Header />
+      <Header navigation={navigation} />
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         {getCartData && getCartData.length > 0
           ? getCartData.map((item, index) => {
+              return (
+                <View style={styles.product_card} key={index}>
+                  <View style={styles.image_area}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate('OrderDetails', {data: item});
+                      }}>
+                      <Image
+                        source={{uri: item.foodImage}}
+                        style={styles.product_image}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.text_area}>
+                    <View style={styles.divide_column}>
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate('OrderDetails', {data: item});
+                        }}>
+                        <Text style={styles.food_text}>
+                          {/* {item.fName + ' ' + item.lName} */}
+                          {item?.order?.name}
+                        </Text>
+                      </TouchableOpacity>
+                      <Text style={styles.food_desc}>Karachi, Pakistan</Text>
+                    </View>
+                  </View>
+                  <View style={styles.time_area}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate('OrderDetails', {data: item});
+                      }}>
+                      <Text style={styles.time_text}>Delivery Time</Text>
+                      <Text style={styles.time_text}>
+                        {item.deliveryTime} min
+                        <Ionicons name={'time-sharp'} size={17} />
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              );
+            })
+          : null}
+        {getData && getData.length > 0
+          ? getData.map((item, index) => {
               return (
                 <View style={styles.product_card} key={index}>
                   <View style={styles.image_area}>

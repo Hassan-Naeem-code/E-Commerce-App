@@ -45,7 +45,7 @@ const Main_Header = () => {
                 paddingBottom: 2,
                 borderRadius: 100,
               }}>
-              <Text style={{fontSize: 11, color: 'white'}}>1</Text>
+              <Text style={{fontSize: 11, color: 'white'}}>0</Text>
             </View>
           </TouchableOpacity>
         </View>

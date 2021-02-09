@@ -14,7 +14,7 @@ const orderDetails = ({route, navigation}) => {
   console.log('Prevoius Screen Data Get Here', data);
   return (
     <View style={styles.container}>
-      <Header />
+      <Header navigation={navigation} />
       <View style={styles.firstSection}>
         <View style={styles.fullSection}>
           <ScrollView>

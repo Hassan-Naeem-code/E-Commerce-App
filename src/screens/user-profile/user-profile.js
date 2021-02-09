@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {
   View,
   Image,
@@ -14,13 +14,14 @@ import {
 } from 'react-native';
 import {Form, Item, Input, Label} from 'native-base';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import auth from '@react-native-firebase/auth';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Header from '../customer_menus/main_header';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {signOut} from '../../../Store/actions/auth';
+import {signOut,fetchUserInfo} from '../../../Store/actions/auth';
 import {useDispatch, useSelector} from 'react-redux';
 
-const UserProfile = () => {
+const UserProfile = ({navigation}) => {
   const dispatch = useDispatch();
   const getUser = useSelector(({auth}) => {
     return auth.auth;
@@ -28,7 +29,29 @@ const UserProfile = () => {
   const signOutUser = () => {
     dispatch(signOut());
   };
-  console.log('User loged in is:', getUser);
+  const [refreshing, setRefreshing] = useState(false);
+  const wait = (time) => {
+    setTimeout(() => {
+      setRefreshing(false);
+    }, time);
+  };
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    auth().onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(fetchUserInfo(user.uid));
+      }
+    });
+    wait(1500);
+  }, []);
+  useEffect(() => {
+    auth().onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(fetchUserInfo(user.uid));
+      }
+    });
+  }, []);
+  console.log('User loged in is:..................', getUser);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -62,7 +85,9 @@ const UserProfile = () => {
                 </TouchableOpacity> */}
               </View>
             </View>
-            <ScrollView>
+            <ScrollView refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
               <View style={styles.area_for_donor_card}>
                 <View style={styles.container}>
                   <View style={styles.imageContainer}>
@@ -75,7 +100,7 @@ const UserProfile = () => {
                     <TouchableOpacity
                       style={styles.edit_btn}
                       onPress={() => {
-                        navigation.navigate('EditProfile');
+                        navigation.navigate('EditProfileCustomer');
                       }}>
                       <FontAwesome name={'edit'} size={25} color={'#FFFEDF'} />
                     </TouchableOpacity>
@@ -291,6 +316,7 @@ const styles = StyleSheet.create({
   },
   image_view: {
     flex: 3,
+    marginVertical: 10,
   },
   main_image: {
     width: '100%',

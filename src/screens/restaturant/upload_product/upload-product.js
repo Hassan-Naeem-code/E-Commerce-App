@@ -115,7 +115,7 @@ const UploadProduct = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
-      <Header />
+      <Header navigation={navigation} />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <ScrollView>

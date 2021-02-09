@@ -39,6 +39,7 @@ import Main_Header from '../customer_menus/main_header';
 import Carts from '../cart/add_cart';
 import Order from '../cart/order_place';
 import Submit from '../cart/submit';
+import EditProfileCustomer from '../user-profile/edit-profile';
 
 // Customer After Login Screens Ends
 
@@ -227,7 +228,11 @@ const Navigation = () => {
           component={Header}
           options={{headerShown: false}}
         />
-        
+         <Screen
+          name="EditProfileCustomer"
+          component={EditProfileCustomer}
+          options={{headerShown: false}}
+        />
       </Navigator>
     </NavigationContainer>
   );

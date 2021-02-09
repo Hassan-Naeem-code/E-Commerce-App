@@ -36,7 +36,7 @@ const ProductDetailPage = ({navigation, route}) => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}>
-        <Header />
+        <Header navigation={navigation} />
         <View style={styles.second_container}>
           <View style={styles.second_view}>
             <View style={styles.inner_view_under_second_view}>

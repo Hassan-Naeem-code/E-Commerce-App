@@ -18,7 +18,7 @@ import {
   getAllWishlist,
 } from '../../../Store/actions/customer';
 
-const Favourite = () => {
+const Favourite = ({navigation}) => {
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
   const wait = (time) => {
@@ -63,7 +63,7 @@ const Favourite = () => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        <Header />
+        <Header navigation={navigation} />
         {getWishlist && getWishlist.length > 0 ? (
           getWishlist.map((item, index) => {
             return (

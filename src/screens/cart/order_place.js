@@ -58,7 +58,7 @@ const OrderPlace = ({navigation}) => {
   return (
     <View style={styles.conatiner}>
       <ScrollView>
-        <Header />
+        <Header navigation={navigation} />
         <Text style={styles.food_text}>Order Summary</Text>
         {getCartProduct && getCartProduct.length > 0 ? (
           <View style={styles.sub_total_area}>

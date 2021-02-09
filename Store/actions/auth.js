@@ -2,7 +2,11 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 // import {LoginManager, AccessToken} from 'react-native-fbsdk';
 // import {GoogleSignin} from '@react-native-community/google-signin';
-import {USER_REGISTERED, USER_LOGGED_OUT,UPDATE_USER} from '../constants/actiontypes';
+import {
+  USER_REGISTERED,
+  USER_LOGGED_OUT,
+  UPDATE_USER,
+} from '../constants/actiontypes';
 import {ToastAndroid} from 'react-native';
 
 // ...
@@ -156,7 +160,7 @@ import {ToastAndroid} from 'react-native';
 //   };
 // }
 
-export function signUpUserEmailPassword(user,navigation) {
+export function signUpUserEmailPassword(user, navigation) {
   return (dispatch) => {
     auth()
       .createUserWithEmailAndPassword(user.email, user.password)
@@ -209,7 +213,7 @@ export function signUpUserEmailPassword(user,navigation) {
 //   };
 // }
 
-export function logInUserEmailPassword(user,navigation) {
+export function logInUserEmailPassword(user, navigation) {
   return (dispatch) => {
     auth()
       .signInWithEmailAndPassword(user.email, user.password)
@@ -245,9 +249,9 @@ export function signOut(navigation) {
           type: USER_LOGGED_OUT,
         });
       });
-      ToastAndroid.show('User Sign Out Successfully',2000);
-      navigation.navigate('Login',{role:'Customer'});
-    console.log('Navigation we get here is',navigation);
+    ToastAndroid.show('User Sign Out Successfully', 2000);
+    navigation.navigate('Login', {role: 'Customer'});
+    console.log('Navigation we get here is', navigation);
   };
 }
 
@@ -260,8 +264,8 @@ export function signOutRestaurant(navigation) {
           type: USER_LOGGED_OUT,
         });
       });
-      ToastAndroid.show('Restaurant Sign Out Successfully',2000);
-      navigation.navigate('Login',{role:'Restaurant'});
+    ToastAndroid.show('Restaurant Sign Out Successfully', 2000);
+    navigation.navigate('Login', {role: 'Restaurant'});
   };
 }
 
@@ -279,23 +283,43 @@ export function fetchUserInfo(uid) {
   };
 }
 
-
-export function updateCurrentUserInfo(userInfo,navigation){
-  return async (dispatch)=>{
+export function updateCurrentUserInfo(userInfo, navigation) {
+  return async (dispatch) => {
     await firestore().collection('users').doc(userInfo.docid).set({
       contactNumber: userInfo.contactNumber,
-      email : userInfo.email,
+      email: userInfo.email,
       location: userInfo.location,
       restaurantname: userInfo.restaurantname,
       typeRes: userInfo.restaurantType,
-      coverImage: userInfo.coverPic,
-      profileImage: userInfo.profilePic
+      coverImage: userInfo.coverImage,
+      profileImage: userInfo.profileImage,
+      id: userInfo.docid,
+      uid: userInfo.uid,
     });
     dispatch({
       type: USER_REGISTERED,
       payload: userInfo,
     });
-    ToastAndroid.show('User Profile Update Successfully',2000);
+    ToastAndroid.show('User Profile Update Successfully', 2000);
     navigation.navigate('RestaurantProfile');
-  }
+  };
+}
+
+export function updateCurrentUserInfoCustomer(userInfo, navigation) {
+  return async (dispatch) => {
+    await firestore().collection('users').doc(userInfo.id).set({
+      phNumber: userInfo.number,
+      email: userInfo.email,
+      address: userInfo.address,
+      fname: userInfo.fname,
+      lname: userInfo.lname,
+      roles: 'Customer',
+      id: userInfo.id,
+      uid: userInfo.uid,
+      coverImage: userInfo.coverImage,
+      profileImage: userInfo.profileImage,
+    });
+    ToastAndroid.show('User Profile Update Successfully', 2000);
+    navigation.navigate('UserProfile');
+  };
 }
