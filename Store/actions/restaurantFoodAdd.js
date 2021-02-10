@@ -74,9 +74,17 @@ export function fecthAllCarts(uid) {
       let dish = doc.data();
       dish.id = doc.id;
       dish.order = orderData.data();
-      dish.image = orderData.data().name;
       dispatch({type: RESTAURANT_CART_ORDERS, payload: dish});
     });
    
   };
+}
+
+
+export function delete_A_Product(id,navigation){
+  return async (dispatch)=>{
+    await firestore().collection('dishes').doc(id).delete();
+    ToastAndroid.show('Food Dish Deleted Successfully', 2000);
+    navigation.navigate('RestaurantHome');
+  }
 }

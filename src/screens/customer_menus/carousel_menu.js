@@ -11,29 +11,29 @@ import {
 
 const ENTRIES1 = [
   {
-    title: 'Beautiful and dramatic Antelope Canyon',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/UYiroysl.jpg',
+    title: 'Paratha With Sabzi And Raita',
+    subtitle: 'Paratha With Sabzi And Raita',
+    illustration: 'https://tap-assets-prod.dexecure.net/wp-content/uploads/sites/9/2017/06/desi-food-habits.jpg',
   },
   {
-    title: 'Earlier this morning, NYC',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/UPrs1EWl.jpg',
+    title: 'Nargisi Kooftay',
+    subtitle: 'Nargisi Kooftay',
+    illustration: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3GbtNbMcqEh_EHWb6Y-tgh1AGA-NuQ1zGLg&usqp=CAU',
   },
   {
-    title: 'White Pocket Sunset',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
-    illustration: 'https://i.imgur.com/MABUbpDl.jpg',
+    title: 'Beef Nihari',
+    subtitle: 'Beef Nihari',
+    illustration: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRelq9x4y2i97c2TKFo8OFEXMMYO_-yz4rLZQ&usqp=CAU',
   },
   {
-    title: 'Acrocorinth, Greece',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/KZsmUi2l.jpg',
+    title: 'Dhaga Kabab',
+    subtitle: 'Dhaga Kabab',
+    illustration: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSjnh-WYo78HWecuQZxKnwYSHzZW6oZbRJGg&usqp=CAU',
   },
   {
-    title: 'The lone tree, majestic landscape of New Zealand',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/2nCt3Sbl.jpg',
+    title: 'Chicken Biryani',
+    subtitle: 'Chicken Biryani',
+    illustration: 'https://www.sooperchef.pk/uploads/topics/2017/06/chicken-bbq-biryani-web-cover.jpg',
   },
 ];
 const {width: screenWidth} = Dimensions.get('window');

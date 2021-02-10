@@ -6,103 +6,103 @@ import {
   StyleSheet,
   Image,
   ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {signOut} from '../../../../Store/actions/auth';
+import {delete_A_Product} from '../../../../Store/actions/restaurantFoodAdd';
 import {useDispatch} from 'react-redux';
 
 const ProductDetail = ({navigation, route}) => {
   const {productData} = route.params;
   const dispatch = useDispatch();
-  
-  const LogOutUser=()=>{
-      dispatch(signOut(navigation));
-  }
+
+  const LogOutUser = () => {
+    dispatch(signOut(navigation));
+  };
+  console.log('Data of previous screen is',productData);
   return (
     <View style={styles.container}>
-      <View style={styles.firstSection}>
-        <View style={styles.firstSectionArea}>
-          <View style={styles.innerPartOne}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack();
-              }}>
-              <AntDesign
-                name={'arrowleft'}
-                size={30}
-                color={'rgb(118,118,118)'}
-              />
-            </TouchableOpacity>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}>
+        <View style={styles.second_container}>
+          <View style={styles.second_view}>
+            <View style={styles.inner_view_under_second_view}>
+              <View style={styles.empty_view}></View>
+              <View style={styles.image_view}>
+                <Image
+                  source={require('../../../assets/Images/cook.png')}
+                  style={styles.main_image}
+                />
+              </View>
+              <View style={styles.empty_view}></View>
+            </View>
           </View>
-          <View style={styles.innerPartLeft}></View>
-          <View style={styles.innerPartTwo}>
-            <TouchableOpacity style={styles.logoutBtnCircle} onPress={LogOutUser}>
-              <AntDesign name={'logout'} size={18} color={'rgb(255,99,71)'} />
-            </TouchableOpacity>
+          <View style={styles.centerContentStyle}>
+            <View style={styles.main_view}>
+              <View style={styles.inner_view_under_second_view_margin}>
+                <View style={styles.flex_2_center}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.goBack();
+                    }}>
+                    <MaterialCommunityIcon
+                      name={'keyboard-backspace'}
+                      size={27}
+                      color={'white'}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.flex_3_center}>
+                  <Text style={styles.titleStyle}>Food Detail </Text>
+                </View>
+                <View style={styles.flex_2_center}></View>
+              </View>
+              <ScrollView>
+                <View style={styles.area_for_donor_card}>
+                  <View style={styles.container}>
+                    <View style={styles.imageContainer}>
+                      <Image
+                        source={{
+                          uri: productData.foodImage,
+                        }}
+                        style={styles.coverImage}
+                      />
+                    </View>
+                  </View>
+                  <View style={styles.row_center}>
+                    <View style={styles.flex_2_center}>
+                      <Text style={styles.productPrice}>
+                        RS.{productData.foodPrice}/
+                      </Text>
+                    </View>
+                    <View style={{flex: 2}}></View>
+                    <View style={{flex: 3}}>
+                      <TouchableOpacity style={styles.actionBtn} onPress={()=>{dispatch(delete_A_Product(productData.id,navigation))}}>
+                        <AntDesign
+                          name={'delete'}
+                          size={18}
+                          color={'rgb(255,0,0)'}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                  <Text style={styles.productHeading}>
+                    {productData.dishName}
+                  </Text>
+                  <Text style={styles.prodcutDetailHeading}>
+                    {productData.foodDesc}
+                  </Text>
+                </View>
+              </ScrollView>
+            </View>
           </View>
         </View>
-      </View>
-      <View style={styles.secondSection}>
-        <Image
-          source={{
-            uri: productData.foodImage,
-          }}
-          style={styles.productImage}
-        />
-        <ScrollView>
-          <Text style={styles.productHeading}>{productData.dishName}</Text>
-          <Text style={styles.prodcutDetailHeading}>
-            {productData.foodDesc}
-          </Text>
-          <View style={styles.areaUnderActionHeading}>
-            <View style={styles.firstAreaUnderHeading}>
-              <Text style={styles.actionHeading}>Location:</Text>
-            </View>
-            <View style={styles.secondAreaUnderHeading}>
-              <Text style={styles.actionHeading}>{productData.location}</Text>
-            </View>
-          </View>
-          <View style={styles.areaUnderActionHeading}>
-            <View style={styles.firstAreaUnderHeading}>
-              <Text style={styles.actionHeading}>Delivery Time:</Text>
-            </View>
-            <View style={styles.secondAreaUnderHeading}>
-              <Text style={styles.actionHeading}>
-                <Ionicons name={'time-sharp'} size={17} />{' '}
-                {productData.deliveryTime} minutes
-              </Text>
-            </View>
-          </View>
-          <View style={styles.selectionArea}>
-            <View style={styles.areaUnderActionHeading}>
-              <View style={styles.firstAreaUnderHeading}>
-                <Text style={styles.actionHeading}>ACTIONS</Text>
-              </View>
-              <View style={styles.areaLeftEmpty}></View>
-              <View style={styles.secondAreaFirstHeading}>
-                <TouchableOpacity style={styles.actionBtn}>
-                  <FontAwesome
-                    name={'edit'}
-                    size={18}
-                    color={'rgb(255,99,71)'}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View style={styles.secondAreaSecondHeading}>
-                <TouchableOpacity style={styles.actionBtn} >
-                  <AntDesign name={'delete'} size={18} color={'rgb(255,0,0)'} />
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </ScrollView>
-      </View>
-      <View style={styles.thirdSection}>
-        <AntDesign name={'copyright'} size={20} color={'black'} />
-        <Text>Copyright All Rights Reserved 2021.</Text>
-      </View>
+      </KeyboardAvoidingView>
     </View>
   );
 };
@@ -112,6 +112,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFEDF',
+  },
+  second_container: {
+    flex: 12,
+    backgroundColor: '#FFFEDF',
+  },
+  food_text: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginLeft: 10,
+    marginVertical: 10,
+    color: 'rgb(118,118,118)',
   },
   firstSection: {
     flex: 1,
@@ -126,7 +137,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 18,
+    marginTop: 10,
+    marginBottom: 3,
+    // marginVertical: 10,
   },
   innerPartLeft: {
     flex: 5,
@@ -135,7 +148,9 @@ const styles = StyleSheet.create({
     flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 18,
+    marginTop: 10,
+    marginBottom: 3,
+    // marginVertical: 10,
     position: 'relative',
   },
   logoutBtnCircle: {
@@ -147,12 +162,12 @@ const styles = StyleSheet.create({
   secondSection: {
     flex: 7,
     backgroundColor: '#FFFEDF',
+    padding: 30,
   },
   productImage: {
     width: '100%',
     height: 200,
     borderRadius: 15,
-    marginLeft: 2,
   },
   productHeading: {
     marginVertical: 15,
@@ -164,6 +179,13 @@ const styles = StyleSheet.create({
   prodcutDetailHeading: {
     fontSize: 15,
     fontWeight: '500',
+    color: 'rgb(118,118,118)',
+    marginBottom: 50,
+    marginHorizontal: 5,
+  },
+  productPrice: {
+    fontSize: 21,
+    fontWeight: '700',
     color: 'rgb(118,118,118)',
     marginVertical: 2,
     marginHorizontal: 5,
@@ -224,5 +246,227 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFEDF',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  buyNowBtn: {
+    backgroundColor: '#FF6347',
+    color: '#fff',
+    borderRadius: 20,
+    paddingTop: 9,
+    paddingBottom: 9,
+    paddingLeft: 30,
+    paddingRight: 30,
+    marginTop: 5,
+    alignItems: 'center',
+  },
+  btnText: {
+    color: '#fff',
+  },
+  row_center: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  flex_2_center: {
+    flex: 2,
+    justifyContent: 'center',
+  },
+  flex_3_center: {
+    flex: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  titleStyle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  nameStyle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  numberStyle: {
+    fontSize: 16,
+    fontWeight: '900',
+    color: 'white',
+  },
+  bloodStyle: {
+    fontSize: 16,
+    fontWeight: '900',
+  },
+  centerContentStyle: {
+    flex: 3,
+    flexDirection: 'row',
+    paddingHorizontal: 15,
+  },
+  main_view: {
+    flex: 3,
+    backgroundColor: '#FF6347',
+    elevation: 5,
+    borderTopRightRadius: 25,
+    borderTopLeftRadius: 25,
+  },
+  second_view: {
+    flex: 1,
+    backgroundColor: '#FFFEDF',
+    marginBottom: 25,
+  },
+  inner_view_under_second_view: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inner_view_under_second_view_margin: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  area_for_donor_card: {
+    backgroundColor: 'white',
+    padding: 10,
+  },
+  area_for_donor_card_detail: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FF6347',
+    padding: 10,
+    borderRadius: 10,
+    elevation: 5,
+    marginVertical: 5,
+  },
+  empty_view: {
+    flex: 2,
+  },
+  image_view: {
+    flex: 3,
+  },
+  main_image: {
+    width: '100%',
+    height: 170,
+    marginVertical: 10,
+  },
+  login_image: {
+    width: '60%',
+    height: 150,
+  },
+  w_100: {
+    width: '100%',
+  },
+  btn_cart: {
+    backgroundColor: '#FF6347',
+    borderRadius: 25,
+    width: '70%',
+    padding: 13,
+    marginVertical: 15,
+  },
+  btn: {
+    backgroundColor: '#FF6347',
+    borderRadius: 25,
+    width: '50%',
+    padding: 13,
+    marginVertical: 15,
+  },
+  btn_text: {
+    color: 'white',
+    fontSize: 15,
+    fontWeight: '900',
+    textAlign: 'center',
+  },
+  route_text: {
+    color: '#FF6347',
+    fontSize: 19,
+    fontWeight: 'bold',
+  },
+  color_white: {
+    color: 'white',
+    fontSize: 15,
+    fontWeight: '800',
+  },
+  flex_5_center: {
+    flex: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  flex_3_center: {
+    flex: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  flex_2_center: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  flex_2_start: {
+    flex: 2,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
+  flex_2: {
+    flex: 2,
+  },
+  flex_3: {
+    flex: 3,
+  },
+  flex_7: {
+    flex: 7,
+  },
+  flex_row: {
+    flexDirection: 'row',
+  },
+  areaForPlusMinus: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 7,
+  },
+  firstArea: {
+    flex: 1,
+  },
+  secondArea: {flex: 5},
+  innerAreaOfSecond: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 7,
+  },
+  thirdArea: {
+    flex: 1,
+    backgroundColor: 'green',
+  },
+  imageContainer: {
+    position: 'relative',
+  },
+  coverImage: {
+    width: '100%',
+    height: 200,
+    borderRadius: 15,
+  },
+  profileImage: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 5,
+  },
+  inner_row_product_card_Icon: {
+    flex: 2,
+    alignItems: 'flex-end',
+  },
+  inner_row_product_card_icon_text: {
+    flex: 3,
+    alignItems: 'center',
+  },
+  inner_row_product_grand_amount: {
+    fontSize: 15,
+    color: 'rgb(118,118,118)',
+  },
+  inner_row_product_orignal_image: {
+    flex: 2,
+    alignItems: 'flex-start',
   },
 });
