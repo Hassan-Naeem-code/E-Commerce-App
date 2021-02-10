@@ -115,7 +115,7 @@ const UploadProduct = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
-      <Header navigation={navigation} />
+      {/* <Header navigation={navigation} /> */}
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <ScrollView>
@@ -186,7 +186,7 @@ const UploadProduct = ({navigation}) => {
           <Text style={styles.food_title}>Quantity Of The Dish</Text>
           <View style={styles.product_field_area}>
             <TextInput
-              placeholder="Enter Name Of The Dish"
+              placeholder="Enter Quantity Of The Dish"
               value={qualityFood}
               keyboardType={'numeric'}
               onChangeText={(text) => {
@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   field_width: {
-    width: '50%',
+    width: '100%',
     textAlign: 'center',
   },
   btn: {
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     padding: 15,
     width: '50%',
-    marginBottom: 70,
+    marginBottom: 5,
   },
   btnText: {
     textAlign: 'center',
